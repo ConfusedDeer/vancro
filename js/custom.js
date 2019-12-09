@@ -113,8 +113,11 @@ jQuery(document).ready(function ($) {
 
 function validateContactForm() {
     let isFormValid = true;
+    let email = $("#mce-EMAIL").val();
+
     clearContactFormErrors();
-    if ($("#mce-EMAIL").val().length < 1) {
+
+    if (email.length < 1 || !isValidEmail(email)) {
         isFormValid = false;
         $("#emailError").show();
     } else if ($("#mce-FNAME").val().length < 1) {
@@ -131,6 +134,15 @@ function validateContactForm() {
         clearContactFormErrors();
     }
     return isFormValid;
+}
+
+function isValidEmail(email)
+{
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
+    {
+        return true;
+    }
+    return false;
 }
 
 function clearContactFormErrors() {
